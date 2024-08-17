@@ -41,5 +41,7 @@ Appointment.belongsTo(Specialism, {
   targetKey: "id"
 });
 
-// Patient.belongsToMany(Medic, { through: "PatientMedic" });
-// Medic.belongsToMany(Patient, { through: "PatientMedic" });
+Patient.belongsToMany(Medic, { through: "PatientMedic" });
+Medic.belongsToMany(Patient, { through: "PatientMedic" });
+
+export { Patient, Specialism, Medic, MedicalStory, Appointment, PatientMedic };
