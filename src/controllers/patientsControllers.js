@@ -1,9 +1,10 @@
 import { Patient } from "../dbConnection.js";
 import { Op } from "sequelize";
+import bcrypt from "bcrypt";
 
 export const createPatient = async (patientData) => {
   try {
-    const { email, phone } = patientData;
+    const { name, lastName, email, phone, role, password } = patientData;
     const validatePatient = await Patient.findOne({
       where: {
         [Op.or]: [{ email: email }, { phone: phone }]
@@ -17,8 +18,17 @@ export const createPatient = async (patientData) => {
         throw new Error("Phone number already exists");
       }
     }
-
-    const newPatient = await Patient.create(patientData);
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hashSync(password, saltRounds);
+    const patient = {
+      name,
+      lastName,
+      email,
+      phone,
+      role,
+      password: hashedPassword
+    };
+    const newPatient = await Patient.create(patient);
     const newPatientCreated = {
       id: newPatient.userId,
       name: newPatient.name,
