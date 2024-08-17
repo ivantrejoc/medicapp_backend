@@ -5,8 +5,7 @@ const Patient = (sequelize) => {
     "Patient",
     {
       userId: {
-        type: DataTypes.INTEGER,
-        default: true,
+        type: DataTypes.INTEGER,        
         primaryKey: true,
         autoIncrement: true,
         unique: true
@@ -38,7 +37,7 @@ const Patient = (sequelize) => {
         allowNull: false
       }
     },
-    { timestamps: true }
+    { tableName: "Patients", timestamps: true }
   );
 };
 

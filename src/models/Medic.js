@@ -4,9 +4,8 @@ const Medic = (sequelize) => {
   return sequelize.define(
     "Medic",
     {
-      userId: {
-        type: DataTypes.INTEGER,
-        default: true,
+      medicId: {
+        type: DataTypes.INTEGER,        
         primaryKey: true,
         autoIncrement: true,
         unique: true
@@ -42,7 +41,7 @@ const Medic = (sequelize) => {
         allowNull: false
       }
     },
-    { timestamps: true }
+    { tableName: "Medics", timestamps: true }
   );
 };
 
