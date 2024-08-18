@@ -1,7 +1,8 @@
 import {
   createMedicalStory,
   editMedicalStory,
-  deleteMedicalStory
+  deleteMedicalStory,
+  getMedicalStoryByPatient
 } from "../controllers/medicalStoriesControllers.js";
 
 export const createMedicalStoryHandler = async (req, res) => {
@@ -14,6 +15,21 @@ export const createMedicalStoryHandler = async (req, res) => {
     return res
       .status(201)
       .json({ message: "Medical story created successfully", newStory });
+  } catch (error) {
+    console.error;
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const getMedicalStoryByPatientHandler = async (req, res) => {
+  try {
+    const { patientId } = req.params;
+    const parsedPatientId = Number(patientId);
+    const medicalStory = await getMedicalStoryByPatient(parsedPatientId);
+    if (medicalStory.error) {
+      return res.status(404).json({ message: medicalStory.error });
+    }
+    return res.status(200).json({ medicalStory });
   } catch (error) {
     console.error;
     return res.status(500).json({ message: error.message });

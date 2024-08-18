@@ -19,6 +19,23 @@ export const createMedicalStory = async (storyData) => {
   }
 };
 
+export const getMedicalStoryByPatient = async (patientId) => {
+  try {
+    const getStory = await MedicalStory.findOne({
+      where: {
+        patientId
+      }
+    });
+    if (!getStory) {
+      throw new Error("Patient does not have a medical story");
+    }
+    return getStory;
+  } catch (error) {
+    console.error;
+    throw new Error(error.message);
+  }
+};
+
 export const editMedicalStory = async (storyId, newData) => {
   try {
     const validateStory = await MedicalStory.findOne({
