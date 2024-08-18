@@ -11,7 +11,7 @@ const MedicalStory = (sequelize) => {
         autoIncrement: true,
         unique: true
       },
-      patienId: {
+      patientId: {
         type: DataTypes.INTEGER,
         allowNull: false
       },

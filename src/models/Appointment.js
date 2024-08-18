@@ -21,8 +21,7 @@ const Appointment = (sequelize) => {
       },
       specialismId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        unique: true
+        allowNull: false
       },
       date: {
         type: DataTypes.DATEONLY,
