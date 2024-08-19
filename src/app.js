@@ -1,15 +1,14 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import mainRouter from "./routes/index.js";
 
 const server = express();
 
 server.use(morgan("dev"));
 server.use(express.json());
 
-server.get("/", (req, res) => {
-  res.status(200).send("SERVER OK");
-});
+server.use("/api", mainRouter);
 
 server.use((req, res, next) => {
   res.header(
