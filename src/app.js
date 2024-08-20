@@ -5,22 +5,15 @@ import mainRouter from "./routes/index.js";
 
 const server = express();
 
+const corsOptions = {
+  origin:"http://localhost:5173",  
+  credentials: true,
+  optionSuccessStatus: 200
+}
+server.use(cors(corsOptions));
 server.use(morgan("dev"));
 server.use(express.json());
-
 server.use("/api", mainRouter);
-
-server.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-  res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
-  next();
-});
-
-server.use(cors({ credentials: true, origin: "*" }));
 
 server.use((error, req, res, next) => {
   const status = error.status || 500;
