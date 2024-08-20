@@ -11,7 +11,7 @@ export const signInHandler = async (req, res) => {
       error.message === "User not found" ||
       error.message === "Incorrect password"
     ) {
-      return res.status(401).json(error.message);
+      return res.status(401).json({message: error.message});
     }
     return res.status(500).json({ message: error.message });
   }

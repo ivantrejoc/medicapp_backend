@@ -10,22 +10,28 @@ export const createAppointmentHandler = async (req, res) => {
     const appointmentData = req.body;
     const appointment = await createAppointment(appointmentData);
     if (appointment.error) {
-      return res.status(400).json(appointment.error);
+      throw new Error(appointment.error);
     }
     res
       .status(201)
       .json({ message: "Appointment successfully created", appointment });
   } catch (error) {
     console.error(error);
+    if (
+      (error.message =
+        "Date and hour unavailable for this medic, please choose another date and hour")
+    ) {
+      return res.status(400).json({ message: error.message });
+    }
     return res.status(500).json({ message: error.message });
   }
 };
 
 export const getAppointmentsByIdHandler = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params;    
     const patientId = Number(id);
-    console.log("patientID: ", patientId);
+    
     const appointmentsById = await getAppointmentsById(patientId);
     if (appointmentsById.error) {
       return res.status(404).json(appointmentsById.error);
