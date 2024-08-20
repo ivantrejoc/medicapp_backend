@@ -19,8 +19,16 @@ const Appointment = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false
       },
+      medic:{
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       specialismId: {
         type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      specialism: {
+        type: DataTypes.STRING,
         allowNull: false
       },
       date: {
