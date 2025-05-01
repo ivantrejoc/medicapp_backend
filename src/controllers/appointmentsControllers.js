@@ -17,8 +17,7 @@ export const createAppointment = async (appointmentData) => {
     const appointment = await Appointment.create(appointmentData);
     return appointment;
   } catch (error) {
-    console.error(error);
-    throw new Error(error.message);
+    return { error: error.message };
   }
 };
 
