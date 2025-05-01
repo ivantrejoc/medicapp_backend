@@ -5,12 +5,12 @@ import mainRouter from "./routes/index.js";
 
 const server = express();
 
-const corsOptions = {
-  origin:"http://localhost:5173",  
-  credentials: true,
-  optionSuccessStatus: 200
-}
-server.use(cors(corsOptions));
+// const corsOptions = {
+//   origin:"http://localhost:5173",  
+//   credentials: true,
+//   optionSuccessStatus: 200
+// }
+// server.use(cors(corsOptions));
 server.use(morgan("dev"));
 server.use(express.json());
 server.use("/api", mainRouter);

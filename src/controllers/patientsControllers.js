@@ -19,7 +19,7 @@ export const createPatient = async (patientData) => {
       }
     }
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hashSync(password, saltRounds);
+    const hashedPassword = bcrypt.hashSync(password, saltRounds);
     const patient = {
       name,
       lastName,
@@ -28,6 +28,7 @@ export const createPatient = async (patientData) => {
       role,
       password: hashedPassword
     };
+
     const newPatient = await Patient.create(patient);
     const newPatientCreated = {
       id: newPatient.userId,
@@ -39,7 +40,7 @@ export const createPatient = async (patientData) => {
     };
     return newPatientCreated;
   } catch (error) {
-    console.error;
+    console.error(error);
     throw new Error(error.message);
   }
 };
