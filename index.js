@@ -5,8 +5,10 @@ const port = process.env.PORT || 3001;
 
 const runServer = async () => {
   try {
-    await sequelize.sync({ alter: true });
-    if (process.env.VERCEL !== 1) {
+    await sequelize.authenticate();
+
+    if (process.env.NODE_ENV !== "production") {
+      await sequelize.sync({ alter: true });
       server.listen(port, () => {
         console.log("Server raised on port:", port);
       });
@@ -17,3 +19,5 @@ const runServer = async () => {
 };
 
 runServer();
+
+export default server;
