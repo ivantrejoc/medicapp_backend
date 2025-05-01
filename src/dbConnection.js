@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
+import pg from "pg";
 import PatientModel from "./models/Patient.js";
 import SpecialismModel from "./models/Specialism.js";
 import MedicModel from "./models/Medic.js";
@@ -9,9 +10,13 @@ import PatientMedicModel from "./models/PatientMedic.js";
 
 dotenv.config();
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env;
-export const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`
-);
+
+export const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  port: DB_PORT,
+  dialect: "postgres",
+  dialectModule: pg
+});
 
 PatientModel(sequelize);
 SpecialismModel(sequelize);
