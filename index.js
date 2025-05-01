@@ -17,6 +17,3 @@ const runServer = async () => {
 };
 
 runServer();
-
-
-export default server; // Esto es lo que espera Vercel
