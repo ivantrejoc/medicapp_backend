@@ -6,12 +6,16 @@ const port = process.env.PORT || 3001;
 const runServer = async () => {
   try {
     await sequelize.sync({ alter: true });
-    server.listen(port, () => {
-      console.log("Server raised at port: " + port);
-    });
+    if (process.env.VERCEL !== 1) {
+      server.listen(port, () => {
+        console.log("Server raised on port:", port);
+      });
+    }
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
 };
 
 runServer();
+
+export default server; // Esto es lo que espera Vercel
